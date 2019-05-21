@@ -1,0 +1,44 @@
+workspace:
+  base: /crontab
+  path: /src/github.com/lurise/crontab
+
+kind: pipeline
+name: default
+
+steps:
+- name: build
+  image: golang:1.11
+  commands:
+    - "go build -ldflags \"-extldflags \\\\\"-static\\\\\"\" -o release/master github.com/lurise/crontab/master/main"
+    - CGO_ENABLED=0 go build -o release/worker github.com/lurise/crontab/worker/main
+  volumes:
+  - name: gopath
+    path: /go
+
+- name: publish_agent
+  image: plugins/docker
+  settings:
+    auto_tag: true
+    auto_tag_suffix: linux-arm
+    dockerfile: docker/Dockerfile.master
+    password:
+      from_secret: docker_password
+    repo: lurise/cronmaster
+    username:
+      from_secret: docker_username
+
+- name: publish_controller
+  image: plugins/docker
+  settings:
+    auto_tag: true
+    auto_tag_suffix: linux-arm
+    dockerfile: docker/Dockerfile.worker
+    password:
+      from_secret: docker_password
+    repo: lurise/cronworker
+    username:
+      from_secret: docker_username
+
+volumes:
+  - name: gopath
+    temp: {}
