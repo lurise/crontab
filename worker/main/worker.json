@@ -1,0 +1,30 @@
+{
+  "Etcd的集群列表": "配置多个，避免单点故障",
+  "etcdEndpoints": [
+    "10.2.8.14:2379"
+  ],
+  "Etcd的连接超时": "单位是毫秒",
+  "etcdDailTimeout": 5000,
+
+  "Mongodb的Uri": "采用mongodb的Uri",
+  "mongodbUri": "mongodb://127.0.0.1:27017",
+
+  "mongodb的连接超时时长": "单位是毫秒",
+  "mongodbConnectionTimeout": 5000,
+
+  "日志批次大小": "为了减少",
+  "logBatchSize": 100,
+
+  "日志自动提交超时": "在批次未达标之前，超时自动提交，单位毫秒",
+  "jobLogCommitTimeout": 1000,
+
+  "停止容器过期时间": "尝试停止容器运行，单位毫秒",
+  "containerStopTimeout": 1000,
+
+  "drone镜像的tag":"设置drone的镜像",
+  "droneImageTag": "lurise/drone",
+  "drone镜像的拉取地址":"设置drone的镜像拉取地址",
+  "droneImagePullAddr": "drone/lurise",
+  "drone可运行的端口池":"设定端口池后，drone将尝试在worker节点上使用该端口池中的端口",
+  "droneRunningPorts": ["80","8080","8081"]
+}
